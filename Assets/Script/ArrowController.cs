@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
+    GameObject director;
     GameObject player;
     float speed = -0.02f;
     // Start is called before the first frame update
     void Start()
     {
         this.player = GameObject.Find("player");
+        this.director = GameObject.Find("GameDirector");
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class ArrowController : MonoBehaviour
 
         if (transform.position.y < -5.0f)
         {
-
+            GameObject.Find("GameDirector").GetComponent<GameDirector>().score++;
             Destroy(gameObject);
         }
 
@@ -35,15 +37,15 @@ public class ArrowController : MonoBehaviour
 
         if (distance < r1 + r2)
         {
-            GameObject director = GameObject.Find("GameDirector");
             director.GetComponent<GameDirector>().DecreaseHp();
 
             Destroy(gameObject);
         }
 
-        speed *= 1.01f;
+        speed *= 1.003f;
 
     }
+
 
 
 }
