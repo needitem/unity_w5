@@ -11,16 +11,17 @@ public class GameDirector : MonoBehaviour
     GameObject button;
     GameObject Score;
 
-    
-    private int max_hp = 10;
+
+    private float max_hp = 10.0f;
     [SerializeField]
     public int hp = 0;
     public int score = 0;
     public bool isPlaying = true;
 
+
     private void Start()
     {
-        this.hp = this.max_hp;
+        this.hp = (int)this.max_hp;
         this.hpGauge = GameObject.Find("hpGauge");
         this.player = GameObject.Find("player");
         this.button = GameObject.Find("Reset");
@@ -33,7 +34,7 @@ public class GameDirector : MonoBehaviour
     public void DecreaseHp()
     {
         this.hp--;
-        this.hpGauge.GetComponent<Image>().fillAmount = (1); //fix later!
+        this.hpGauge.GetComponent<Image>().fillAmount = (hp / max_hp); //fix later!
     }
 
     void Update()
@@ -51,7 +52,7 @@ public class GameDirector : MonoBehaviour
 
     public void InitGame()
     {
-        this.hp = this.max_hp;
+        this.hp = (int)this.max_hp;
         player.transform.position = new Vector3(0, -3.5f, 0);
         this.isPlaying= true;
         this.button.SetActive(false);

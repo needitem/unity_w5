@@ -42,6 +42,11 @@ public class ArrowController : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+        if(!GameObject.Find("GameDirector").GetComponent<GameDirector>().isPlaying)
+        {
+            speed = 0.0f;
+        }
         speed *= 1.003f;
 
     }
