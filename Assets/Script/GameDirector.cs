@@ -11,13 +11,13 @@ public class GameDirector : MonoBehaviour
     GameObject button;
     GameObject Score;
 
-
     private float max_hp = 10.0f;
     [SerializeField]
     public int hp = 0;
     public int score = 0;
     public bool isPlaying = true;
 
+    ArrowGenerator clone = new ArrowGenerator();
 
     private void Start()
     {
@@ -52,6 +52,7 @@ public class GameDirector : MonoBehaviour
 
     public void InitGame()
     {
+        clone.DestroyAll();
         this.hp = (int)this.max_hp;
         player.transform.position = new Vector3(0, -3.5f, 0);
         this.isPlaying= true;

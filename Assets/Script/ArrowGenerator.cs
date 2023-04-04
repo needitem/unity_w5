@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class ArrowGenerator : MonoBehaviour
@@ -8,6 +9,8 @@ public class ArrowGenerator : MonoBehaviour
     float span = 1.0f;
     float delta = 0;
     GameObject Game;
+
+    static List<GameObject>  clone = new List<GameObject>();
 
     private void Start()
     {
@@ -26,7 +29,19 @@ public class ArrowGenerator : MonoBehaviour
                 GameObject go = Instantiate(arrowPrefab);
                 int px = Random.Range(-10, 10);
                 go.transform.position = new Vector3(px, 7, 0);
+                clone.Add(go);
             }
         }
     }
+
+    public void DestroyAll()
+    {
+        foreach (GameObject t in clone)
+        {
+            Destroy(t);
+        }
+
+        clone.Clear();
+    }
+
 }
