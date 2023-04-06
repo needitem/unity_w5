@@ -1,47 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 
 public class ArrowGenerator : MonoBehaviour
 {
     public GameObject arrowPrefab;
-    float span = 1.0f;
-    float delta = 0;
-    GameObject Game;
-
-    static List<GameObject>  clone = new List<GameObject>();
+    private float spawnInterval = 1.0f;
+    private float timeSinceLastSpawn = 0.0f;
+    private GameObject gameDirector;
+    private static List<GameObject> spawnedArrows = new List<GameObject>();
 
     private void Start()
     {
-        Game = GameObject.Find("GameDirector");
+        gameDirector = GameObject.Find("GameDirector");
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if(Game.GetComponent<GameDirector>().isPlaying)
-        {
-            this.delta += Time.deltaTime;
 
-            if (this.delta > this.span)
+    private void Update()
+    {
+        if (gameDirector.GetComponent<GameDirector>().isPlaying)
+        {
+            timeSinceLastSpawn += Time.deltaTime;
+
+            if (timeSinceLastSpawn > spawnInterval)
             {
-                this.delta = 0;
-                GameObject go = Instantiate(arrowPrefab);
-                int px = Random.Range(-10, 10);
-                go.transform.position = new Vector3(px, 7, 0);
-                clone.Add(go);
+                timeSinceLastSpawn = 0;
+                GameObject arrow = Instantiate(arrowPrefab);
+                int xPosition = Random.Range(-10, 10);
+                arrow.transform.position = new Vector3(xPosition, 7, 0);
+                spawnedArrows.Add(arrow);
             }
         }
     }
 
     public void DestroyAll()
     {
-        foreach (GameObject t in clone)
+        foreach (GameObject arrow in spawnedArrows)
         {
-            Destroy(t);
+            Destroy(arrow);
         }
 
-        clone.Clear();
+        spawnedArrows.Clear();
     }
-
 }
