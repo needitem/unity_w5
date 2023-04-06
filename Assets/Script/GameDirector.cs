@@ -35,11 +35,11 @@ public class GameDirector : MonoBehaviour
     public void DecreaseHp()
     {
         this.hp--;
-        this.hpGauge.GetComponent<Image>().fillAmount = (float)hp / max_hp;
     }
 
     void Update()
     {
+        this.hpGauge.GetComponent<Image>().fillAmount = (float)hp / max_hp;
         if (this.hp <= 0 && isPlaying) //game status = end;
         {
             Score.SetActive(true);
@@ -53,8 +53,10 @@ public class GameDirector : MonoBehaviour
 
     public void InitGame()
     {
+
         clone.DestroyAll();
         this.hp = (int)this.max_hp;
+        this.score = 0;
         player.transform.position = new Vector3(0, -3.5f, 0);
         this.isPlaying = true;
         this.button.SetActive(false);
